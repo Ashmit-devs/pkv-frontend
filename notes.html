@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; }
+        input, textarea { display: block; margin-bottom: 10px; width: 300px; }
+        button { margin-bottom: 20px; background-color: #c2e6f6; border: 1px solid #67b3d3; }
+        .notes, .view-notes { padding: 10px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background-color: #5cadf3; padding: 10px; color: white; }
+        .nav-links a { margin-left: 150px; color: white; text-decoration: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <section class="navbar">
+        <a style="margin-left: 100px;">Personal Knowledge Vault</a>
+        <div class="nav-links">
+            <a href="login.html" onclick="logout()">Logout</a>
+        </div>
+    </section>
+
+    <div class="notes">
+        <h2>Add Note</h2>
+        <input type="text" id="noteTitle" placeholder="Title">
+        <textarea id="noteContent" rows="4" placeholder="Content"></textarea>
+        <button onclick="addNote()">Add Note</button>
+        <p id="noteMsg"></p>
+    </div>
+
+    <div class="view-notes">
+        <h2>Your Notes</h2>
+        <ul id="notesList"></ul>
+    </div>
+
+    <script>
+        let currentUserId = localStorage.getItem("userId");
+        if (!currentUserId) { window.location.href = "login.html"; }
+
+        function addNote() {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').value;
+
+            fetch(`https://pkv-backend.onrender.com/api/notes/create/${currentUserId}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({title, content})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('noteMsg').innerText = data.message;
+                getNotes();
+            })
+            .catch(err => console.error(err));
+        }
+
+        function getNotes() {
+            fetch(`https://pkv-backend.onrender.com/api/notes/user/${currentUserId}`)
+            .then(res => res.json())
+            .then(notes => {
+                const list = document.getElementById('notesList');
+                list.innerHTML = '';
+                notes.forEach(note => {
+                    const li = document.createElement('li');
+                    li.textContent = `${note.title}: ${note.content}`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(err => console.error(err));
+        }
+
+        function logout() {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("userEmail");
+        }
+
+        getNotes();
+    </script>
+</body>
+</html>

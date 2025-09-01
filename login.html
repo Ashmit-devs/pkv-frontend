@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; }
+        input { display: block; margin-bottom: 10px; width: 300px; }
+        button { margin-bottom: 20px; background-color: #c2e6f6; border: 1px solid #67b3d3; }
+        .login { padding: 20px; width: 350px; margin: auto; }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: #5cadf3; padding: 10px; color: white;
+        }
+        .nav-links a { margin-left: 150px; color: white; text-decoration: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <section class="navbar">
+        <a style="margin-left: 100px;">Personal Knowledge Vault</a>
+        <div class="nav-links">
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </div>
+    </section>
+
+    <div class="login">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="loginUser()">Login</button>
+        <p id="loginMsg"></p>
+    </div>
+
+    <script>
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            fetch('https://pkv-backend.onrender.com/api/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email, password})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('loginMsg').innerText = data.message;
+                if (data.message === "Login successful!") {
+                    localStorage.setItem("userId", data.userId);
+                    localStorage.setItem("userEmail", email);
+                    window.location.href = "notes.html";
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; }
+        input { display: block; margin-bottom: 10px; width: 300px; }
+        button { margin-bottom: 20px; background-color: #c2e6f6; border: 1px solid #67b3d3; }
+        .register { padding: 20px; width: 350px; margin: auto; }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: #5cadf3; padding: 10px; color: white;
+        }
+        .nav-links a { margin-left: 150px; color: white; text-decoration: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <section class="navbar">
+        <a style="margin-left: 100px;">Personal Knowledge Vault</a>
+        <div class="nav-links">
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </div>
+    </section>
+
+    <div class="register">
+        <h2>Register</h2>
+        <input type="text" id="regName" placeholder="Name">
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button onclick="registerUser()">Register</button>
+        <p id="regMsg"></p>
+    </div>
+
+    <script>
+        function registerUser() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            fetch('https://pkv-backend.onrender.com/api/auth/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, email, password})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('regMsg').innerText = data.message;
+                if (data.userId) {
+                    setTimeout(() => { window.location.href = "login.html"; }, 1500);
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
