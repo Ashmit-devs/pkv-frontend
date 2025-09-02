@@ -10,7 +10,7 @@
         }
         input, textarea { 
             display: block; 
-            margin-bottom: 1.2%; 
+            margin-bottom: 2%; 
             width: 50%; 
         }
         button {  
@@ -21,19 +21,41 @@
         }
         .notes, .view-notes { 
             /* padding: 10px;  */
-            margin-bottom: 20px; 
+            margin-bottom: 5%; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
         }
         .notes h2 { 
+            margin-top: 5%;
             color: #2e8de0; 
         }
         .view-notes h2 { 
-            color: #5016f0; 
+            color: #3dd0c1; 
+            margin-top: 15%;
+            padding: 0;
+        }
+        #notesList {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* centers the items horizontally */
+            padding: 0;
+            width: 100%;
+            height: max-content;
+        }
+
+        #notesList li {
+            list-style: none;
+            text-align: center; /* centers the text inside li */
         }
         ul { 
             list-style-type: none; 
+        }
+        ul h3 {
+            color: #2e8de0;
+        }
+        ul p {
+            color: #3dd0c1;
         }
         .navbar {
             display: flex; 
@@ -108,9 +130,28 @@
             .then(notes => {
                 const list = document.getElementById('notesList');
                 list.innerHTML = '';
+
                 notes.forEach(note => {
                     const li = document.createElement('li');
-                    li.textContent = `${note.title}: ${note.content}`;
+
+                    // Title element
+                    const titleEl = document.createElement('h3');
+                    titleEl.textContent = note.title;
+                    titleEl.style.cursor = "pointer";
+
+                    // Content element (hidden initially)
+                    const contentEl = document.createElement('p');
+                    contentEl.textContent = note.content;
+                    contentEl.style.display = "none";
+
+                    // Toggle on click
+                    titleEl.addEventListener('click', () => {
+                        contentEl.style.display = 
+                            contentEl.style.display === "none" ? "block" : "none";
+                    });
+
+                    li.appendChild(titleEl);
+                    li.appendChild(contentEl);
                     list.appendChild(li);
                 });
             })
