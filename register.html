@@ -5,61 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
+
         input { 
             display: block; 
-            margin: 2% auto; 
-            width: 50%; 
+            margin: 12px auto; 
+            width: 80%; 
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
         }
+
         button { 
-            margin-bottom: 20px; 
-            background-color: #c2e6f6; 
-            border: 1px solid #67b3d3; 
-            /* margin-left: 25%; */
-            padding: 5px 10px;
+            margin-top: 15px; 
+            padding: 12px 25px; 
+            background-color: #5cadf3; 
+            color: white; 
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background 0.3s ease;
         }
+        button:hover {
+            background-color: #2e8de0;
+        }
+
         .register { 
-            /* padding: 20px;  */
             width: 100%;
-            margin: auto; 
+            max-width: 500px;
+            margin: 50px auto; 
             text-align: center;
         }
         .register h2 { 
+            font-size: 1.8rem;
+            margin-bottom: 20px;
             color: #2e8de0;
-            /* text-align: center;  */
         }
+
         .navbar {
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             background-color: #5cadf3; 
-            padding: 20px; 
+            padding: 20px 10%; 
             color: white;
-            padding-right: 10%;
         }
         .nav-links {
             display: flex; 
-            gap: 25%;
+            gap: 40px;
         }
         .nav-links a {
             color: white; 
             text-decoration: none; 
-            cursor: pointer;
+            font-size: 1rem;
         }
         .logo {
             text-decoration: none;
             color: white;
             font-weight: bold;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
     <section class="navbar">
-        <a style="margin-left: 100px;" href="index.html" class="logo">Personal Knowledge Vault</a>
+        <a href="index.html" class="logo">Personal Knowledge Vault</a>
         <div class="nav-links">
             <a href="register.html">Register</a>
             <a href="login.html">Login</a>
@@ -69,7 +87,7 @@
     <div class="register">
         <h2>Register</h2>
         <input type="text" id="regName" placeholder="Name">
-        <input type="email" id="regEmail" placeholder="Email">
+        <input type="email" id="regEmail" placeholder="UserId">
         <input type="password" id="regPassword" placeholder="Password">
         <button onclick="registerUser()">Register</button>
         <p id="regMsg"></p>
