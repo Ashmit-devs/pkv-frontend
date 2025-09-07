@@ -11,56 +11,71 @@
             margin: 0;
             padding: 0;
         }
+
+        /* Navbar */
         .navbar {
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             background-color: #5cadf3; 
-            padding: 20px; 
+            padding: 20px 10%; 
             color: white;
-            padding-right: 10%;
-        }
-        .home-content h1 { 
-            font-size: 2.5em;
-        }
-        .home-content h1:nth-child(2) { 
-            margin-bottom: 20px; 
-            color: #5cadf3;
-        }
-        .home-content p, .home-content ul li { 
-            margin-bottom: 20px; 
         }
         .nav-links {
             display: flex; 
-            gap: 25%;
+            gap: 40px;
         }
         .nav-links a {
             color: white; 
             text-decoration: none; 
-            cursor: pointer;
-        }
-        .home-content {
-            text-align: left; 
-            margin: 5% 10%;
-        }
-        .home-content ul {
-            list-style-type: none; 
-            /* display: inline-block;  */
-            /* margin-top: 20px; */
-        }
-        .home-content div a {
-            /* display: inline-block;  */
-            margin-top: 5%; 
-            padding: 10px 20px; 
-            background-color: #5cadf3; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 5px;
+            font-size: 1rem;
         }
         .logo {
             text-decoration: none;
             color: white;
             font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Home Content */
+        .home-content {
+            text-align: left; 
+            margin: 5% 10%;
+            max-width: 800px;
+        }
+        .home-content h1 { 
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .home-content h1:nth-child(2) { 
+            margin-bottom: 20px; 
+            color: #2e8de0;
+        }
+        .home-content p, 
+        .home-content ul li { 
+            margin-bottom: 15px; 
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .home-content ul {
+            list-style-type: none; 
+            padding-left: 0;
+        }
+
+        /* Button / Link */
+        .home-content div a {
+            display: inline-block;
+            margin-top: 20px; 
+            padding: 12px 25px; 
+            background-color: #5cadf3; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+        .home-content div a:hover {
+            background-color: #2e8de0;
         }
     </style>
 </head>
